@@ -1,20 +1,24 @@
 
 "use client";
-
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Link from "next/link";
+import { Settings } from "lucide-react";
 
 const sports = [
-  { name: "Football", emoji: "⚽" },
-  { name: "Cricket", emoji: "🏏" },
+  // { name: "Football", emoji: "⚽" },
+{ name: "Cricket", emoji: "🏏", href: "/cricket" },
+{ name: "Volyball", emoji: "🏐", href: "/volyball" },
   { name: "Basketball", emoji: "🏀" },
   { name: "Badminton", emoji: "🏸" },
-  { name: "Volleyball", emoji: "🏐" },
+ { name: "Football", emoji: "⚽" },
   { name: "Kho-Kho", emoji: "🏃" },
 ];
 
 const tabs = ["Sports", "Entertainment", "Community"];
 
 export default function HomePage() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("Sports");
   const [menuOpen, setMenuOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -30,22 +34,32 @@ export default function HomePage() {
 
           {/* Desktop navigation */}
           <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-2 sm:flex">
-            {tabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => {
-                  setActiveTab(tab);
-                  setSelectedSport(null);
-                }}
-                className={`rounded-lg px-5 py-2 text-sm transition ${
-                  activeTab === tab
-                    ? "bg-white text-black"
-                    : "text-gray-400 hover:bg-white/5 hover:text-white"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
+{tabs.map((tab) =>
+  tab === "Community" ? (
+    <Link
+      key={tab}
+      href="/community"
+      className="rounded-lg px-5 py-2 text-sm text-gray-400 transition hover:bg-white/5 hover:text-white"
+    >
+      {tab}
+    </Link>
+  ) : (
+    <button
+      key={tab}
+      onClick={() => {
+        setActiveTab(tab);
+        setSelectedSport(null);
+      }}
+      className={`rounded-lg px-5 py-2 text-sm transition ${
+        activeTab === tab
+          ? "bg-white text-black"
+          : "text-gray-400 hover:bg-white/5 hover:text-white"
+      }`}
+    >
+      {tab}
+    </button>
+  )
+)}
           </div>
 
           {/* Mobile hamburger */}
@@ -61,17 +75,14 @@ export default function HomePage() {
           </button>
 
           {/* Larger settings icon */}
-          <button
-            onClick={() => {
-              setSettingsOpen(!settingsOpen);
-              setMenuOpen(false);
-            }}
-            aria-label="Settings"
-            aria-expanded={settingsOpen}
-            className="rounded-lg p-3 text-gray-200 transition hover:bg-white/10"
-          >
-            <span className="text-3xl leading-none">⚙</span>
-          </button>
+          <Link
+  href="/settings"
+  aria-label="Settings"
+  title="Settings"
+  className="inline-flex h-12 w-12 items-center justify-center rounded-lg text-gray-200 transition hover:bg-white/10"
+>
+  <Settings size={25} strokeWidth={1.8} />
+</Link>
         </nav>
 
         {/* Mobile menu */}
@@ -160,7 +171,13 @@ export default function HomePage() {
               {sports.map((sport) => (
                 <button
                   key={sport.name}
-                  onClick={() => setSelectedSport(sport.name)}
+                  onClick={() => {
+  if (sport.href) {
+    router.push(sport.href);
+  } else {
+    setSelectedSport(sport.name);
+  }
+}}
                   className={`group min-h-36 rounded-2xl border p-4 text-left transition duration-200 sm:min-h-44 sm:p-6 ${
                     selectedSport === sport.name
                       ? "border-white/40 bg-white/10"

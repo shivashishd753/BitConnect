@@ -24,3 +24,114 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+/* =========================================
+   BIT CONNECT — GLOBAL THEME SUPPORT
+   ========================================= */
+
+html {
+  color-scheme: dark;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  background-color: #0d0e12;
+  color: #f9fafb;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+  background-color: #f8fafc;
+  color: #111827;
+}
+
+html[data-theme="light"] body {
+  background-color: #f8fafc;
+  color: #111827;
+}
+
+/* Convert existing dark page backgrounds to light backgrounds. */
+html[data-theme="light"] [class~="bg-[#0d0e12]"],
+html[data-theme="light"] [class~="bg-[#0d0e12]"] > main {
+  background-color: #f8fafc !important;
+}
+
+html[data-theme="light"] [class~="bg-[#15161d]"],
+html[data-theme="light"] [class~="bg-[#14151b]"],
+html[data-theme="light"] [class~="bg-[#17181f]"] {
+  background-color: #ffffff !important;
+}
+
+html[data-theme="light"] [class~="bg-black/20"],
+html[data-theme="light"] [class~="bg-black/30"],
+html[data-theme="light"] [class~="bg-white/5"],
+html[data-theme="light"] [class~="bg-white/[0.03]"] {
+  background-color: #f3f4f6 !important;
+}
+
+/* Light borders instead of dark-mode white borders. */
+html[data-theme="light"] [class~="border-white/10"],
+html[data-theme="light"] [class~="border-white/15"] {
+  border-color: #e5e7eb !important;
+}
+
+/* Dark text on light surfaces. */
+html[data-theme="light"] [class~="text-gray-100"],
+html[data-theme="light"] [class~="text-gray-200"],
+html[data-theme="light"] [class~="text-gray-300"] {
+  color: #1f2937 !important;
+}
+
+html[data-theme="light"] [class~="text-gray-400"],
+html[data-theme="light"] [class~="text-gray-500"],
+html[data-theme="light"] [class~="text-gray-600"] {
+  color: #6b7280 !important;
+}
+
+/* Inputs and text areas should match the selected theme. */
+html[data-theme="light"] input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+html[data-theme="light"] textarea,
+html[data-theme="light"] select {
+  background-color: #ffffff;
+  color: #111827;
+  border-color: #d1d5db;
+}
+
+html[data-theme="dark"] select {
+  color-scheme: dark;
+}
+
+html[data-theme="light"] select {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] select option {
+  background-color: #15161d;
+  color: #f9fafb;
+}
+
+html[data-theme="light"] select option {
+  background-color: #ffffff;
+  color: #111827;
+}
+
+/* Keep primary action button text readable. */
+html[data-theme="light"] button.bg-violet-600,
+html[data-theme="light"] button.bg-violet-500,
+html[data-theme="light"] button.bg-red-600 {
+  color: #ffffff;
+}
+
+html[data-theme="light"] button.bg-violet-600 *,
+html[data-theme="light"] button.bg-violet-500 *,
+html[data-theme="light"] button.bg-red-600 * {
+  color: #ffffff !important;
+}
+
+/* Preserve readable placeholders. */
+html[data-theme="light"] input::placeholder,
+html[data-theme="light"] textarea::placeholder {
+  color: #9ca3af;
+  opacity: 1;
+}

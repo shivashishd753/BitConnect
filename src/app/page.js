@@ -576,6 +576,7 @@
 import { useRef, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const BRANCHES = [
   "Chemical Engineering",
@@ -739,7 +740,7 @@ async function handleSignup(event) {
     return;
   }
 
-  if (signupForm.password !== signupForm.confirmPassword) {
+  if (signupForm.password !== signupForm.confirmPassword) {getUser
     setError("Passwords do not match.");
     return;
   }
