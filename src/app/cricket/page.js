@@ -1555,6 +1555,13 @@ const [playersError, setPlayersError] = useState("");
           </div>
 
           <div className="flex items-center gap-3">
+            <Link
+  href="/cricket/technique-lab"
+  className="inline-flex items-center gap-2 rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-2.5 text-sm font-medium text-emerald-300 transition hover:bg-emerald-500/15"
+>
+  <Activity size={17} />
+  <span className="hidden sm:inline">Technique Lab</span>
+</Link>
             <button
               type="button"
               onClick={() =>

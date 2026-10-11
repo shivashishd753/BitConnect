@@ -780,11 +780,29 @@ async function handleSignup(event) {
     });
     setError("Account created successfully! Please log in.");
    } catch (err) {
-    console.error("Signup error:", err);
+  console.error("Signup error:", err);
+
+  const message = String(err?.message || "");
+  const normalizedMessage = message.toLowerCase();
+
+  if (message.includes("CHALLAN_REQUIRED")) {
+    setError("Please enter your challan number.");
+  } else if (message.includes("CHALLAN_INVALID_OR_USED")) {
     setError(
-      err.message || "Could not create your account. Please try again."
+      "This challan number is invalid, already used, or revoked. Please check it and try again."
+    );
+  } else if (
+    normalizedMessage.includes("database error saving new user")
+  ) {
+    setError(
+      "Signup could not be completed. The challan verification database rejected the registration or encountered an error. Check your test challan and Supabase configuration, then try again."
+    );
+  } else {
+    setError(
+      message || "Could not create your account. Please try again."
     );
   }
+}
 }
 
  

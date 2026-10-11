@@ -33,7 +33,7 @@ const POSITION_OPTIONS = ["Attacker", "Defender", "Libero"];
 const INITIAL_PLAYERS = [
   {
     id: "player-1",
-    name: "Aditya",
+    name: "A",
     year: 3,
     department: "Computer Science",
     positions: ["Attacker", "Defender"],
@@ -212,9 +212,15 @@ function getChallengeStartTime(challenge) {
   return Number.isNaN(start.getTime()) ? null : start;
 }
 
-function isChallengeExpired(challenge, now = Date.now()) {
+function isChallengeExpired(challenge, now) {
+  if (!Number.isFinite(now) || now <= 0) {
+    return false;
+  }
+
   const start = getChallengeStartTime(challenge);
+
   if (!start) return false;
+
   return now >= start.getTime() + 24 * 60 * 60 * 1000;
 }
 
@@ -337,6 +343,7 @@ export default function VolleyballPage() {
   const [activeTab, setActiveTab] = useState("My Activity");
 
   const [players, setPlayers] = useState(INITIAL_PLAYERS);
+  const [now, setNow] = useState(0);
   const [challenges, setChallenges] = useState(INITIAL_CHALLENGES);
   const [requests, setRequests] = useState(INITIAL_REQUESTS);
   const [posts, setPosts] = useState(INITIAL_POSTS);
@@ -351,11 +358,13 @@ export default function VolleyballPage() {
         return active.length === previous.length ? previous : active;
       });
     };
+    
 
     removeExpiredChallenges();
     const intervalId = setInterval(removeExpiredChallenges, 30_000);
     return () => clearInterval(intervalId);
-  }, []);
+  }, 
+  []);
 
   const [playerSearch, setPlayerSearch] = useState("");
   const [positionFilter, setPositionFilter] = useState("All");

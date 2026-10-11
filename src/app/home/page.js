@@ -44,20 +44,25 @@ export default function HomePage() {
       {tab}
     </Link>
   ) : (
-    <button
-      key={tab}
-      onClick={() => {
-        setActiveTab(tab);
-        setSelectedSport(null);
-      }}
-      className={`rounded-lg px-5 py-2 text-sm transition ${
-        activeTab === tab
-          ? "bg-white text-black"
-          : "text-gray-400 hover:bg-white/5 hover:text-white"
-      }`}
-    >
-      {tab}
-    </button>
+<button
+  key={tab}
+  onClick={() => {
+    if (tab === "Entertainment") {
+      router.push("/entertainment");
+      return;
+    }
+
+    setActiveTab(tab);
+    setSelectedSport(null);
+  }}
+  className={`rounded-lg px-5 py-2 text-sm transition ${
+    activeTab === tab
+      ? "bg-white text-black"
+      : "text-gray-400 hover:bg-white/5 hover:text-white"
+  }`}
+>
+  {tab}
+</button>
   )
 )}
           </div>
